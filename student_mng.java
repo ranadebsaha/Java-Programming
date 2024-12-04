@@ -1,25 +1,36 @@
 import java.util.*;
 class Student{
-Scanner sc = new Scanner(System.in);
 int roll,s_mark1,s_mark2,s_mark3;
 String name,sub1,sub2,sub3;
 int avg,total;
 void setName(){
+    Scanner sc = new Scanner(System.in);
     System.out.print("Enter Student Name: ");
-    sc.nextLine();
     name = sc.nextLine();
 }
-void getName(){
-    System.out.print("Student Name: "+name);
+String getName(){
+    return name;
+}
+void showName(){
+    System.out.println("Student Name: "+name);
 }
 void setRoll(){
+    Scanner sc = new Scanner(System.in);
     System.out.print("Enter Roll No: ");
     roll = sc.nextInt();
 }
-void getRoll(){
-    System.out.print("Roll no"+roll);
+int getRoll(){
+    return roll;
+}
+void showRoll(){
+    System.out.println("Roll no: "+roll);
 }
 void setSub(){
+    if(!(sub1==null)){
+        System.out.println("Subject already Entered");
+        return;
+    }
+    Scanner sc = new Scanner(System.in);
     System.out.print("Enter Subject 1 Name: ");
     sub1 = sc.nextLine();
     System.out.print("Enter Subject 2 Name: ");
@@ -28,11 +39,20 @@ void setSub(){
     sub3 = sc.nextLine();
 }
 void getSub(){
+    if(sub1==null){
+        System.out.println("Please enter Subject Name");
+        return;
+    }
     System.out.println("Subject 1 Name: "+sub1);
     System.out.println("Subject 2 Name: "+sub2);
     System.out.println("Subject 3 Name: "+sub3);
 }
 void setMark(){
+    if(!(s_mark1==0)){
+        System.out.println("Marks already Entered");
+        return;
+    }
+    Scanner sc = new Scanner(System.in);
     System.out.print("Enter Subject 1 Marks: ");
     s_mark1 = sc.nextInt();
     System.out.print("Enter Subject 2 Marks: ");
@@ -41,6 +61,10 @@ void setMark(){
     s_mark3 = sc.nextInt();
 }
 void getMark(){
+    if(s_mark1==0){
+        System.out.println("Please enter Marks");
+        return;
+    }
     System.out.println("Subject 1 Marks"+s_mark1);
     System.out.println("Subject 2 Marks"+s_mark2);
     System.out.println("Subject 3 Marks"+s_mark3);
@@ -54,15 +78,25 @@ void getAvg(){
     System.out.println("Average: "+avg);
 }
 void show(){
-    total=s_mark1+s_mark2+s_mark3;
-    avg=(s_mark1+s_mark2+s_mark3)/3;
-    System.out.print("Student Name: "+name);
-    System.out.print("Roll no"+roll);
+    if(getStatus()==0){
+        System.out.println("No data Found");
+        return;
+    }
+    showRoll();
+    showName();
     System.out.println(sub1+": "+s_mark1);
     System.out.println(sub2+": "+s_mark2);
     System.out.println(sub3+": "+s_mark3);
-    System.out.println("Total Marks: "+total);
-    System.out.println("Average: "+avg);
+    getTotal();
+    getAvg();
+}
+int getStatus(){
+    if(sub1==null || s_mark1==0){
+        return 0;
+    }
+    else{
+        return 1;
+    }
 }
 }
 
@@ -85,65 +119,86 @@ class student_mng {
             System.out.println("1.Show Individual Student");
             System.out.println("2.Enter Subject Name");
             System.out.println("3.Enter Subject Marks");
-            System.out.println("4.Student Details");
+            System.out.println("4.Student Report");
             System.out.println("5.Transpose");
             System.out.println("6.Exit");
             System.out.print("Enter Your Choice: ");
             ch = sc.nextInt();
-            int ck;
+            int ck,temp=0;
             switch (ch) {
                 case 1:
-                
+                temp=0;
                 for(int i = 0; i < st; i++){
-                    System.out.println(arr[i].roll+". "+arr[i].name);
+                    System.out.println(arr[i].getRoll()+". "+arr[i].getName());
                 }
                 System.out.println("Enter Roll no: ");
                 ck=sc.nextInt();
                 for(int i = 0; i < st; i++){
-                    if(arr[i].roll==ck){
+                    if(arr[i].getRoll()==ck){
                         arr[i].show();
+                        temp=1;
                         break;
                     }
                 }
+                if(temp==0){
+                    System.out.println("Invalid Roll no!!");
+                }
                     break;
                 case 2:
+                temp=0;
                 for(int i = 0; i < st; i++){
-                    System.out.println(arr[i].roll+". "+arr[i].name);
+                    System.out.println(arr[i].getRoll()+". "+arr[i].getName());
                 }
                 System.out.println("Enter Roll no: ");
                 ck=sc.nextInt();
                 for(int i = 0; i < st; i++){
-                    if(arr[i].roll==ck){
+                    if(arr[i].getRoll()==ck){
+                        temp=1;
                         arr[i].setSub();
                         break;
                     }
                 }
+                if(temp==0){
+                    System.out.println("Invalid Roll no!!");
+                }
                     break;
                 case 3:
+                temp=0;
                 for(int i = 0; i < st; i++){
-                    System.out.println(arr[i].roll+". "+arr[i].name);
+                    System.out.println(arr[i].getRoll()+". "+arr[i].getName());
                 }
                 System.out.println("Enter Roll no: ");
                 ck=sc.nextInt();
                 for(int i = 0; i < st; i++){
-                    if(arr[i].roll==ck){
+                    if(arr[i].getRoll()==ck){
+                        temp=1;
                         arr[i].setMark();
                         break;
                     }
                 }
+                if(temp==0){
+                    System.out.println("Invalid Roll no!!");
+                }
                     break;
                 case 4:
-                    // mm.div(mat1, mat2, r1, c1, r2, c2);
+                temp=0;
+                for(int i = 0; i < st; i++){
+                    if(arr[i].getStatus()==0){
+                        temp=1;
+                        System.out.println("Please Fill "+ arr[i].getName()+"'s Data..");
+                        break;
+                    }
+                }
+                if(temp==0){
+                    System.out.println("-------Student Report-------");
+                    for(Student s:arr){
+                        s.show();
+                        System.out.println(' ');
+                    }
+                }
                     break;
                 case 5:
-                    // System.out.print("Choose one Matrix(1 or 2): ");
-                    //  m1 = sc.nextInt();
-                    // if (m1 == 1)
-                    //     mm.transpose(mat1, r1, c1);
-                    // else if (m1 == 2)
-                    //     mm.transpose(mat2, r2, c2);
-                    // else
-                    //     System.out.println("Invalid Matrix No, Try again...");
+                    
                     break;
                 case 6:
                     System.out.println("Thank you for using RDS code, Have a Great Day");
