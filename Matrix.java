@@ -1,7 +1,29 @@
 import java.util.*;
 
 class Mymatrix {
-    void add(int mat1[][], int mat2[][], int r1, int c1, int r2, int c2) {
+    int mat[][];
+    int r, c;
+    void setMatrix(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Matrix Row Size: ");
+        r = sc.nextInt();
+        System.out.print("Enter Matrix Column Size: ");
+        c = sc.nextInt();
+        mat = new int[r][c];
+        System.out.print("Enter 1st Matrix Elements: ");
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                mat[i][j] = sc.nextInt();
+            }
+        }
+    }
+
+    void add(int mat1[][]) {
+        int r1,r2,c1,c2;
+        r1=r;
+        c1=c;
+        r2=mat1.length;
+        c2=mat1[0].length;
         int fr, fc;
         if (r1 > r2) {
             fr = r1;
@@ -16,7 +38,7 @@ class Mymatrix {
         int mat3[][] = new int[fr][fc];
         for (int i = 0; i < fr; i++) {
             for (int j = 0; j < fc; j++) {
-                mat3[i][j] = mat1[i][j] + mat2[i][j];
+                mat3[i][j] = mat[i][j] + mat1[i][j];
             }
         }
         System.out.println("After Addition the Final Matrix is: ");
@@ -28,7 +50,12 @@ class Mymatrix {
         }
     }
 
-    void sub(int mat1[][], int mat2[][], int r1, int c1, int r2, int c2) {
+    void sub(int mat1[][]) {
+        int r1,r2,c1,c2;
+        r1=r;
+        c1=c;
+        r2=mat1.length;
+        c2=mat1[0].length;
         int fr, fc;
         if (r1 > r2) {
             fr = r1;
@@ -43,7 +70,7 @@ class Mymatrix {
         int mat3[][] = new int[fr][fc];
         for (int i = 0; i < fr; i++) {
             for (int j = 0; j < fc; j++) {
-                mat3[i][j] = mat1[i][j] - mat2[i][j];
+                mat3[i][j] = mat[i][j] - mat1[i][j];
             }
         }
         System.out.println("After Substraction the Final Matrix is: ");
@@ -55,8 +82,13 @@ class Mymatrix {
         }
     }
 
-    void mul(int mat1[][], int mat2[][], int r1, int c1, int r2, int c2) {
+    void mul(int mat1[][]) {
         int fr, fc;
+        int r1,r2,c1,c2;
+        r1=r;
+        c1=c;
+        r2=mat1.length;
+        c2=mat1[0].length;
         if (c1 == r2) {
             fr = r1;
             fc = c2;
@@ -68,7 +100,7 @@ class Mymatrix {
         for (int i = 0; i < fr; i++) {
             for (int j = 0; j < fr; j++) {
                 for (int k = 0; k < fc; k++) {
-                    mat3[i][j] = mat3[i][j] + (mat1[i][k] * mat2[k][j]);
+                    mat3[i][j] = mat3[i][j] + (mat[i][k] * mat1[k][j]);
                 }
             }
         }
@@ -81,8 +113,13 @@ class Mymatrix {
         }
     }
 
-    void div(int mat1[][], int mat2[][], int r1, int c1, int r2, int c2) {
+    void div(int mat1[][]) {
         int fr, fc;
+        int r1,r2,c1,c2;
+        r1=r;
+        c1=c;
+        r2=mat1.length;
+        c2=mat1[0].length;
         if (r1 > r2) {
             fr = r1;
         } else {
@@ -96,7 +133,7 @@ class Mymatrix {
         int mat3[][] = new int[fr][fc];
         for (int i = 0; i < fr; i++) {
             for (int j = 0; j < fc; j++) {
-                mat3[i][j] = mat1[i][j] / mat2[i][j];
+                mat3[i][j] = mat[i][j] / mat1[i][j];
             }
         }
         System.out.println("After Division the Final Matrix is: ");
@@ -108,8 +145,8 @@ class Mymatrix {
         }
     }
 
-    void transpose(int mat[][], int r1, int c1) {
-        int fr = c1, fc = r1;
+    void transpose() {
+        int fr = c, fc = r;
         int mat1[][] = new int[fr][fc];
         for (int i = 0; i < fr; i++) {
             for (int j = 0; j < fc; j++) {
@@ -125,98 +162,70 @@ class Mymatrix {
         }
     }
 
-    void diagonal(int mat[][], int r1, int c1){
-        int temp=0;
-        for (int i = 0; i < r1; i++) {
-            for (int j = 0; j < c1; j++) {
-                if(i==j){
-                    if(mat[i][j]!=0){
+    void diagonal() {
+        int temp = 0;
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (i == j) {
+                    if (mat[i][j] != 0) {
                         temp++;
                     }
-                }else{
-                    if(mat[i][j]!=0){
+                } else {
+                    if (mat[i][j] != 0) {
                         System.out.println("It's not a Diagonal Matrix");
                         return;
                     }
                 }
             }
         }
-        if(temp==0){
+        if (temp == 0) {
             System.out.println("It's a Zero Matrix");
-        }else{
+        } else {
             System.out.println("Yes!, It's a Diagonal Matrix");
         }
-        
+
     }
-    void identity(int mat[][], int r1, int c1){
-        for (int i = 0; i < r1; i++) {
-            for (int j = 0; j < c1; j++) {
-                if(i==j){
-                    if(mat[i][j]!=1){
+
+    void identity() {
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (i == j) {
+                    if (mat[i][j] != 1) {
                         System.out.println("It's not a Identity Matrix");
                         return;
                     }
-                }else{
-                    if(mat[i][j]!=0){
+                } else {
+                    if (mat[i][j] != 0) {
                         System.out.println("It's not a Identity Matrix");
                         return;
                     }
                 }
             }
         }
-        System.out.println("It's a Identity Matrix");  
+        System.out.println("It's a Identity Matrix");
     }
 
-    void show(int mat1[][], int mat2[][], int r1, int c1, int r2, int c2){
-        System.out.println("1st Matrix: ");
-        for (int i = 0; i < r1; i++) {
-            for (int j = 0; j < c1; j++) {
-                System.out.print(mat1[i][j] + "  ");
+    void show() {
+        System.out.println("Matrix: ");
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                System.out.print(mat[i][j] + "  ");
             }
             System.out.print("\n");
         }
-        System.out.println("2nd Matrix: ");
-        for (int i = 0; i < r2; i++) {
-            for (int j = 0; j < c2; j++) {
-                System.out.print(mat2[i][j] + "  ");
-            }
-            System.out.print("\n");
-        }
-        
+        System.out.print("\n");
     }
 
 }
 
-
-
 class matrix {
     public static void main(String rds[]) {
-        Mymatrix mm = new Mymatrix();
         Scanner sc = new Scanner(System.in);
-        int mat1[][], mat2[][];
-        int r1, c1, r2, c2, ch,m1;
-        System.out.print("Enter 1st Matrix Row Size: ");
-        r1 = sc.nextInt();
-        System.out.print("Enter 1st Matrix Column Size: ");
-        c1 = sc.nextInt();
-        System.out.print("Enter 2nd Matrix Row Size: ");
-        r2 = sc.nextInt();
-        System.out.print("Enter 2nd Matrix Column Size: ");
-        c2 = sc.nextInt();
-        mat1 = new int[r1][c1];
-        mat2 = new int[r2][c2];
-        System.out.print("Enter 1st Matrix Elements: ");
-        for (int i = 0; i < r1; i++) {
-            for (int j = 0; j < c1; j++) {
-                mat1[i][j] = sc.nextInt();
-            }
-        }
-        System.out.print("Enter 2nd Matrix Elements: ");
-        for (int i = 0; i < r2; i++) {
-            for (int j = 0; j < c2; j++) {
-                mat2[i][j] = sc.nextInt();
-            }
-        }
+        int ch, m1;
+        Mymatrix mt1= new Mymatrix();
+        mt1.setMatrix();
+        Mymatrix mt2= new Mymatrix();
+        mt2.setMatrix();
         do {
             System.out.println("===----------------Matrix Operation---------------===");
             System.out.println("1.Addition(Element by Element)");
@@ -232,49 +241,50 @@ class matrix {
             ch = sc.nextInt();
             switch (ch) {
                 case 1:
-                    mm.add(mat1, mat2, r1, c1, r2, c2);
+                    mt1.add(mt2.mat);
                     break;
                 case 2:
-                    mm.sub(mat1, mat2, r1, c1, r2, c2);
+                    mt1.sub(mt2.mat);
                     break;
                 case 3:
-                    mm.mul(mat1, mat2, r1, c1, r2, c2);
+                    mt1.mul(mt2.mat);
                     break;
                 case 4:
-                    mm.div(mat1, mat2, r1, c1, r2, c2);
+                    mt1.div(mt2.mat);
                     break;
                 case 5:
                     System.out.print("Choose one Matrix(1 or 2): ");
-                     m1 = sc.nextInt();
+                    m1 = sc.nextInt();
                     if (m1 == 1)
-                        mm.transpose(mat1, r1, c1);
+                        mt1.transpose();
                     else if (m1 == 2)
-                        mm.transpose(mat2, r2, c2);
+                        mt2.transpose();
                     else
                         System.out.println("Invalid Matrix No, Try again...");
                     break;
                 case 6:
                     System.out.print("Choose one Matrix(1 or 2): ");
-                     m1 = sc.nextInt();
+                    m1 = sc.nextInt();
                     if (m1 == 1)
-                        mm.diagonal(mat1, r1, c1);
+                        mt1.diagonal();
                     else if (m1 == 2)
-                        mm.diagonal(mat2, r2, c2);
+                        mt2.diagonal();
                     else
                         System.out.println("Invalid Matrix No, Try again...");
                     break;
                 case 7:
                     System.out.print("Choose one Matrix(1 or 2): ");
-                     m1 = sc.nextInt();
+                    m1 = sc.nextInt();
                     if (m1 == 1)
-                        mm.identity(mat1, r1, c1);
+                        mt1.identity();
                     else if (m1 == 2)
-                        mm.identity(mat2, r2, c2);
+                        mt2.identity();
                     else
                         System.out.println("Invalid Matrix No, Try again...");
                     break;
                 case 8:
-                    mm.show(mat1, mat2, r1, c1, r2, c2);
+                    mt1.show();
+                    mt2.show();
                     break;
                 case 9:
                     System.out.println("Thank you for using RDS code, Have a Great Day");
@@ -284,5 +294,6 @@ class matrix {
                     break;
             }
         } while (ch != 9);
+        sc.close();
     }
 }
