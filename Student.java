@@ -16,7 +16,7 @@ public class Student {
 class newst {
     public static void main(String[] rds) {
         Student s = new Student();
-        s.name_roll("Rupesh", 333);
+        s.name_roll("Ranadeb", 71);
         s.printdata();
     }
 }
