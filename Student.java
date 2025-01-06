@@ -1,4 +1,4 @@
-public class Student {
+class Student1 {
     String name;
     int roll_no;
 
@@ -13,9 +13,9 @@ public class Student {
     }
 }
 
-class newst {
+class Student {
     public static void main(String[] rds) {
-        Student s = new Student();
+        Student1 s = new Student1();
         s.name_roll("Ranadeb", 71);
         s.printdata();
     }
