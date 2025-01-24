@@ -12,7 +12,7 @@ public class jdbc {
         // String url="jdbc:oracle:thin:@localhost:8080:xe";
         String url="jdbc:mysql://localhost:3308/rds";
         String uname="root";
-        String pass="ABab1234@";
+        String pass="1234";
         try{
         // Class.forName("oracle.jdbc.driver.OracleDriver");
         Class.forName("com.mysql.cj.jdbc.Driver");
